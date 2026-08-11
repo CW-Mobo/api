@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    /* ====== Compilação ====== */
+    "target": "ES2020",  
+    "module": "node16",                 // Padrão moderno do JS gerado                 // Padrão de módulo usado pelo Node.js
+    "rootDir": "src",                     // Onde ficam os arquivos .ts
+    "outDir": "dist",                     // Onde os .js compilados serão salvos
+
+    /* ====== Tipagem ====== */
+    "strict": true,                       // Checagem de tipos rigorosa
+    "esModuleInterop": true,              // Permite importar libs CommonJS (como express)
+    "resolveJsonModule": true,            // Permite importar arquivos .json
+    "skipLibCheck": true,                 // Ignora verificação de tipos em libs externas
+    "forceConsistentCasingInFileNames": true,
+
+    /* ====== Node + Paths ====== */
+    "moduleResolution": "node16",
+    "types": ["node"],
+    "paths": {
+      "@config/*": ["./src/config/*"],
+      "@controllers/*": ["./src/controllers/*"],
+      "@models/*": ["./src/models/*"],
+      "@routes/*": ["./src/routes/*"],
+      "@services/*": ["./src/services/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@middlewares/*": ["./src/middlewares/*"]
+    },
+
+    /* ====== Output ====== */
+    "noEmitOnError": true,                // Impede gerar JS se houver erros
+    "sourceMap": true                     // Gera mapas de depuração (debug mais fácil)
+  },
+  "include": ["src/**/*"],                // Inclui tudo dentro de src/
+  "exclude": ["node_modules", "dist"]     // Ignora libs e build final
+}

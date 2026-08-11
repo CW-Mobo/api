@@ -1,0 +1,52 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "API for controlling the lychee harvesting system",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules src/index.ts",
+    "build": "tsc && tsc-alias",
+    "start": "node dist/index.js",
+    "prod": "npm run build && npm start"
+  },
+  "keywords": [
+    "lychee",
+    "harvesting",
+    "IoT",
+    "Express",
+    "TypeScript",
+    "API",
+    "MongoDB"
+  ],
+  "author": "CypherWave",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cloudinary": "^1.41.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.18",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.20.0",
+    "mongoose": "^8.19.1",
+    "multer": "^2.0.2",
+    "multer-storage-cloudinary": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/multer": "^2.1.0",
+    "@types/node": "^24.12.2",
+    "eslint": "^9.37.0",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "tsc-alias": "^1.8.16",
+    "typescript": "^5.9.3"
+  }
+}
