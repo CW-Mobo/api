@@ -3,9 +3,11 @@
 > API REST do Projeto Mobo, responsável pela autenticação, gerenciamento de dados, regras de negócio e comunicação entre as aplicações do sistema.
 
 ![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
-![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)
-![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)
+![Node.js](https://img.shields.io/badge/Node.js-24-339933?logo=node.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript)
+![Express](https://img.shields.io/badge/Express-API-000000?logo=express)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb)
+![JWT](https://img.shields.io/badge/JWT-autenticação-000000?logo=jsonwebtokens)
 
 ---
 
@@ -84,8 +86,6 @@ git clone https://github.com/CW-Mobo/api.git
 cd api
 ```
 
----
-
 ### 2. Backend (Node.js + TypeScript)
 
 ```bash
@@ -149,6 +149,5 @@ A API está hospedada no Render.
 Este projeto está sob a licença MIT.
 
 Consulte o arquivo LICENSE para mais informações.
-
 
 Do
