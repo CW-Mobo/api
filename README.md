@@ -118,7 +118,7 @@ JWT_SECRET=minha_chave_super_secreta_123
 NODE_ENV=development
 ```
 
-#### Rodar o backend
+### 3. Executar a API
 
 ```bash
 npm run dev
