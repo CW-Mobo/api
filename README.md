@@ -86,7 +86,7 @@ git clone https://github.com/CW-Mobo/api.git
 cd api
 ```
 
-### 2. Backend (Node.js + TypeScript)
+### 2. Instalar Dependências 
 
 ```bash
 npm install
@@ -149,5 +149,3 @@ A API está hospedada no Render.
 Este projeto está sob a licença MIT.
 
 Consulte o arquivo LICENSE para mais informações.
-
-Do
