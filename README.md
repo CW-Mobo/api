@@ -128,7 +128,7 @@ A API ficará disponível em `http://localhost:5000`.
 
 ---
 
-## 📚 
+## 📚 Documentação da API
 
 A documentação dos endpoints da API será disponibilizada através do Swagger.
 
