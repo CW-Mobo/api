@@ -74,13 +74,11 @@ Antes de começar, instale:
 - [Node.js](https://nodejs.org/) v20 LTS (recomendado)
 - [Git](https://git-scm.com/)
 - [MongoDB](https://www.mongodb.com/) local **ou** conta no [MongoDB Atlas](https://www.mongodb.com/atlas)
-- [Expo Go](https://expo.dev/go) no celular (para testar o app mobile)
 
 ### 1. Clonar o Repositório
 
 ```bash
-git clone https://github.com/Cypher-Wave/Mobo.git
-cd Mobo
+git clone https://github.com/CW-Mobo/api.git
 ```
 
 ---
@@ -88,13 +86,13 @@ cd Mobo
 ### 2. Backend (Node.js + TypeScript)
 
 ```bash
-cd backend
+cd api
 npm install
 ```
 
 #### Configurar variáveis de ambiente
 
-Na pasta `backend`, crie um arquivo `.env` baseado no `.env.example` disponível no repositório.
+Na pasta `api`, crie um arquivo `.env` baseado no `.env.example` disponível no repositório.
 
 **Usando MongoDB local:**
 ```env
@@ -110,8 +108,8 @@ A aplicação tentará conectar em `mongodb://127.0.0.1:27017/mobo`.
 **Usando MongoDB Atlas:**
 ```env
 PORT=5000
-DB_USER=seu_usuario
-DB_PASSWORD=sua_senha
+DB_USER=seu_usuario_do_banco_de_dados
+DB_PASSWORD=sua_senha_do_banco_de_dados
 DB_NAME=mobo
 USE_LOCAL_DB=false
 JWT_SECRET=minha_chave_super_secreta_123
