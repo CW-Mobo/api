@@ -1,6 +1,6 @@
 # API
 
-> Interface web do Projeto Mobo para monitoramento, gerenciamento e visualização dos dados do sistema de colheita automatizada de lichia.
+> API REST do Projeto Mobo, responsável pela autenticação, gerenciamento de dados, regras de negócio e comunicação entre as aplicações do sistema.
 
 ![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
 ![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)
@@ -11,39 +11,41 @@
 
 ## 📋 Sobre
 
-O **Mobo Web** é a aplicação web do Projeto Mobo, responsável pela interface de gerenciamento e monitoramento do sistema.
+O Mobo API é o backend do Projeto Mobo. A aplicação fornece uma API REST responsável por centralizar as regras de negócio e disponibilizar os dados utilizados pelas aplicações Web e Mobile.
 
-A aplicação permite visualizar informações coletadas pelo sistema, acompanhar dados da colheita, gerenciar usuários e acessar os recursos disponibilizados pela API do Mobo.
+Entre suas responsabilidades estão autenticação, gerenciamento de usuários, armazenamento de dados, gerenciamento de imagens e comunicação com os demais componentes do sistema.
 
 ---
 
 ## ✨ Funcionalidades
 
-- 🔐 Autenticação e gerenciamento de sessão
+- 🔐 Autenticação e autorização de usuários
 - 👤 Gerenciamento de usuários
-- 📊 Dashboard com gráficos e indicadores
-- 🌱 Visualização de dados relacionados à produção
-- 🤖 Monitoramento do braço mecânico
-- 📡 Visualização de dados IoT
-- 📈 Visualização de histórico de dados
-- 🖼️ Gerenciamento e visualização de imagens
+- 📊 Gerenciamento dos dados do sistema
+- 🌱 Gerenciamento de informações relacionadas à produção
+- 📡 Integração com dados de IoT
+- 🤖 Comunicação com componentes do sistema
+- 🖼️ Upload e gerenciamento de imagens
+- 📈 Consulta de dados históricos
+- 🔑 Controle de acesso baseado em autenticação
+- ☁️ Integração com serviços de armazenamento em nuvem
 
 ---
 
 ## 🛠️ Tecnologias
 
-- **Next.js** — framework da aplicação
-- **React** — construção da interface
-- **TypeScript** — tipagem estática
-- **Axios** — comunicação com a API
-- **React Chart.js** — gráficos e visualização de dados
-- **Leaflet** — mapas e localização de dispositivos
-- **Lucide React** — ícones
-- **ESLint** — análise de código
-- **Prettier** — formatação de código
-- **Vitest** — testes
+- **Node.js** — ambiente de execução
+- **TypeScript** — linguagem e tipagem estática
+- **Express** — framework para construção da API REST
+- **MongoDB Atlas** — hospedagem do banco de dados
+- **JWT** — autenticação baseada em tokens
+- **Axios** — comunicação com serviços externos
+- **Cloudinary** — armazenamento e gerenciamento de imagens
+- **dotenv** — gerenciamento de variáveis de ambiente
+- **Vitest** — testes automatizados
 
 ---
+
 ## 🏗️ Arquitetura
 
 ```text
@@ -51,7 +53,7 @@ api
 ├── src
 │   ├── config
 │   ├── controllers
-│   ├── midllewares
+│   ├── middlewares
 │   ├── models
 |   ├── routes
 |   ├── services
@@ -79,6 +81,7 @@ Antes de começar, instale:
 
 ```bash
 git clone https://github.com/CW-Mobo/api.git
+cd api
 ```
 
 ---
@@ -86,7 +89,6 @@ git clone https://github.com/CW-Mobo/api.git
 ### 2. Backend (Node.js + TypeScript)
 
 ```bash
-cd api
 npm install
 ```
 
@@ -123,3 +125,30 @@ npm run dev
 ```
 
 A API ficará disponível em `http://localhost:5000`.
+
+---
+
+## 📚 
+
+A documentação dos endpoints da API será disponibilizada através do Swagger.
+
+**Status:** Em desenvolvimento.
+
+---
+
+## 🌐 Deploy
+
+A API está hospedada no Render.
+
+**Produção:** https://mobo-m9ug.onrender.com
+
+---
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT.
+
+Consulte o arquivo LICENSE para mais informações.
+
+
+Do
