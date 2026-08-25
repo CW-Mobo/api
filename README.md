@@ -51,19 +51,22 @@ Entre suas responsabilidades estão autenticação, gerenciamento de usuários, 
 ## 🏗️ Arquitetura
 
 ```text
-api
-├── src
-│   ├── config
-│   ├── controllers
-│   ├── middlewares
-│   ├── models
-|   ├── routes
-|   ├── services
-|   ├── utils
+api/
+├── src/
+│   ├── config/
+│   ├── controllers/
+│   ├── middlewares/
+│   ├── models/
+|   ├── routes/
+|   ├── services/
+|   ├── utils/
 │   └── index.ts
 ├── .env.example
+├── .gitignore
+├── LICENSE
 ├── package.json
 ├── package-lock.json
+├── README.md
 └── tsconfig.json
 ```
 
