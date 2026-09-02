@@ -25,3 +25,18 @@ export interface ISensorData {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface SensorDataInput {
+  temperature: number;
+  soilHumidity: number;
+  airHumidity: number;
+  alerts?: ISensorData["alerts"];
+  planting: ISensorData["planting"];
+  sensor: ISensorData["sensor"];
+}
+
+export interface SensorDataResult {
+  success?: boolean;
+  message?: string;
+  sensorData?: ISensorData;
+}

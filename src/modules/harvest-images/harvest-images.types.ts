@@ -8,3 +8,9 @@ export interface IHarvestImage {
   description?: string;
   createdAt: Date;
 }
+
+export interface UploadImageResult {
+  success: boolean;
+  image?: IHarvestImage;
+  message?: string;
+}

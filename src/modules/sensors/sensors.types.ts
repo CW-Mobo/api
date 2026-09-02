@@ -23,3 +23,20 @@ export interface ISensor {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface SensorInput {
+  sensorType:
+    | "air_humidity"
+    | "soil_humidity"
+    | "temperature";
+  sensorNumeration: string;
+  sensorAccuracy: number;
+  measuringRange: string;
+  setting: ISensor["setting"];
+}
+
+export interface SensorResult {
+  success?: boolean;
+  message?: string;
+  sensor?: ISensor;
+}
