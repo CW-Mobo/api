@@ -21,14 +21,14 @@ if (process.env.NODE_ENV === "development") {
 connectDB();
 
 // IMPORTAÇÃO DE ROTAS
-import AuthRoutes from "./routes/AuthRoutes";
-import CompanyRoutes from "./routes/CompanyRoutes";
-import HarvestRoutes from "./routes/HarvestRoutes";
-import PlantingRoutes from "./routes/PlantingRoutes";
-import ProfileRoutes from "./routes/ProfileRoutes";
-import SensorDataRoutes from "./routes/SensorDataRoutes";
-import SensorRoutes from "./routes/SensorRoutes";
-import UserRoutes from "./routes/UserRoutes";
+import CompanyRoutes from "./modules/companies/companies.routes";
+import HarvestRoutes from "./modules/harvests/harvests.routes";
+import HarvestImagesRoutes from "./modules/harvest-images/harvest-images.routes";
+import PlantingRoutes from "./modules/plantings/plantings.routes";
+import SensorDataRoutes from "./modules/sensor-data/sensor-data.routes";
+import SensorRoutes from "./modules/sensors/sensors.routes";
+import UserRoutes from "./modules/users/users.routes";
+import AuthRoutes from "./modules/users/auth/auth.routes";
 
 // CONFIGURAÇÃO DE CORS PARA PERMITIR ACESSO APENAS DE ORIGENS ESPECÍFICAS
 const allowedOrigins = ["https://mobocw.vercel.app", "http://localhost:3000"];
@@ -62,7 +62,7 @@ app.use("/api/auth", AuthRoutes);
 app.use("/api/company", CompanyRoutes);
 app.use("/api/harvest", HarvestRoutes);
 app.use("/api/planting", PlantingRoutes);
-app.use("/api/profile", ProfileRoutes);
+app.use("/api/profile", HarvestImagesRoutes);
 app.use("/api/sensordata", SensorDataRoutes);
 app.use("/api/sensor", SensorRoutes);
 app.use("/api/user", UserRoutes);
