@@ -1,13 +1,7 @@
 import bcrypt from "bcrypt";
 import User from "../users.model";
-import {
-  UserInput,
-  UserResult,
-} from "../users.types";
-import {
-  generateToken,
-  IUserPayload,
-} from "../../../utils/jwt";
+import { UserInput, UserResult } from "../users.types";
+import { generateToken, IUserPayload } from "../../../utils/jwt";
 
 class AuthService {
   // AUTENTICAR USUÁRIO
@@ -29,10 +23,7 @@ class AuthService {
         };
       }
 
-      const correct = await bcrypt.compare(
-        userPassword,
-        user.userPassword,
-      );
+      const correct = await bcrypt.compare(userPassword, user.userPassword);
 
       if (!correct) {
         return {
@@ -97,10 +88,7 @@ class AuthService {
         };
       }
 
-      const sanitizedEmail = userEmail
-        .toString()
-        .toLowerCase()
-        .trim();
+      const sanitizedEmail = userEmail.toString().toLowerCase().trim();
 
       if (!sanitizedEmail) {
         return {
@@ -137,15 +125,9 @@ class AuthService {
         };
       }
 
-      const sanitizedCompany =
-        company && company !== ""
-          ? company
-          : undefined;
+      const sanitizedCompany = company && company !== "" ? company : undefined;
 
-      const hashedPassword = await bcrypt.hash(
-        userPassword,
-        10,
-      );
+      const hashedPassword = await bcrypt.hash(userPassword, 10);
 
       const newUser = new User({
         userName,

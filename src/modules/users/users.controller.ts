@@ -6,25 +6,23 @@ import { AuthRequest } from "../../middlewares/authMiddleware";
 
 class UserController {
   // LISTAR TODOS OS USUÁRIOS DE UMA EMPRESA - ADMIN
-  getAllUsers = asyncHandler(
-    async (req: AuthRequest, res: Response) => {
-      const companyId = req.user?.company;
+  getAllUsers = asyncHandler(async (req: AuthRequest, res: Response) => {
+    const companyId = req.user?.company;
 
-      const users = await UserService.getAll(companyId);
+    const users = await UserService.getAll(companyId);
 
-      if (!users || users.length === 0) {
-        return res.status(404).json({
-          success: false,
-          message: "Nenhum usuário encontrado para esta empresa.",
-        });
-      }
-
-      return res.status(200).json({
-        success: true,
-        users,
+    if (!users || users.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Nenhum usuário encontrado para esta empresa.",
       });
-    },
-  );
+    }
+
+    return res.status(200).json({
+      success: true,
+      users,
+    });
+  });
 
   // ATUALIZAR USUÁRIO - PESSOAL
   updateUser = asyncHandler(async (req: AuthRequest, res: Response) => {

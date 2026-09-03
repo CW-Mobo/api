@@ -1,5 +1,4 @@
 import mongoose, { Schema, Model } from "mongoose";
-
 import { ISensor, ISetting, SensorType } from "./sensors.types";
 
 const SettingSchema: Schema<ISetting> = new Schema({
@@ -73,9 +72,6 @@ const SensorSchema: Schema<ISensor> = new Schema(
   { timestamps: true },
 );
 
-const Sensor: Model<ISensor> = mongoose.model<ISensor>(
-  "Sensor",
-  SensorSchema,
-);
+const Sensor: Model<ISensor> = mongoose.model<ISensor>("Sensor", SensorSchema);
 
 export default Sensor;

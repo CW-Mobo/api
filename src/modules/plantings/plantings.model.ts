@@ -1,5 +1,4 @@
 import mongoose, { Schema, Model } from "mongoose";
-
 import { IPlanting, ILocation } from "./plantings.types";
 
 const LocationSchema: Schema<ILocation> = new Schema({

@@ -5,10 +5,7 @@ export interface IFarmerDetails {
   dap: string;
 }
 
-export type UserRole =
-  | "family_farmer"
-  | "company_admin"
-  | "company_worker";
+export type UserRole = "family_farmer" | "company_admin" | "company_worker";
 
 export interface IUser {
   _id?: Types.ObjectId;

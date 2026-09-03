@@ -1,20 +1,15 @@
 import SensorData from "./sensor-data.model";
-
 import {
   ISensorData,
   SensorDataInput,
   SensorDataResult,
 } from "./sensor-data.types";
-
 import { IUserPayload } from "../../utils/jwt";
-
 import { checkOwnership } from "../../utils/checkOwnership";
 
 class SensorDataService {
   // LISTAR TODOS OS DADOS DE SENSOR (SEM PAGINAÇÃO)
-  async getAll(
-    userSession: IUserPayload,
-  ): Promise<ISensorData[]> {
+  async getAll(userSession: IUserPayload): Promise<ISensorData[]> {
     const match =
       userSession.userRole === "family_farmer"
         ? { user: userSession.id }
@@ -70,10 +65,9 @@ class SensorDataService {
       company: sensor?.company?.toString(),
     });
 
-    const updatedSensorData =
-      await SensorData.findByIdAndUpdate(id, data, {
-        new: true,
-      });
+    const updatedSensorData = await SensorData.findByIdAndUpdate(id, data, {
+      new: true,
+    });
 
     return {
       success: true,

@@ -5,7 +5,6 @@ import { UserInput } from "./users.types";
 
 class UserService {
   // DELETAR IMAGEM DO CLOUDINARY
-
   private async deleteUserImage(id: string): Promise<void> {
     try {
       const publicId = `mobo/users/${id}`;
@@ -23,7 +22,6 @@ class UserService {
   }
 
   // LISTAR TODOS OS USUÁRIOS DE UMA EMPRESA
-
   async getAll(companyId?: string) {
     const query = companyId ? { company: companyId } : {};
 
@@ -31,7 +29,6 @@ class UserService {
   }
 
   // ATUALIZAR USUÁRIO
-
   async update(id: string, data: Partial<UserInput>) {
     try {
       const updateData = { ...data };
@@ -52,7 +49,6 @@ class UserService {
   }
 
   // DELETAR USUÁRIO
-
   async delete(id: string) {
     await this.deleteUserImage(id);
 
@@ -65,7 +61,6 @@ class UserService {
   }
 
   // BUSCAR UM USUÁRIO ESPECÍFICO
-
   async getOne(id: string) {
     return await User.findById(id).select("-userPassword");
   }

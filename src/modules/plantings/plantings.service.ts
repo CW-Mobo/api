@@ -1,13 +1,6 @@
 import Planting from "./plantings.model";
-
-import {
-  IPlanting,
-  PlantingInput,
-  PlantingResult,
-} from "./plantings.types";
-
+import { IPlanting, PlantingInput, PlantingResult } from "./plantings.types";
 import { IUserPayload } from "../../utils/jwt";
-
 import {
   checkOwnership,
   ownedFields,
@@ -16,9 +9,7 @@ import {
 
 class PlantingService {
   // LISTAR PLANTAÇÕES
-  async getAll(
-    userSession: IUserPayload,
-  ): Promise<IPlanting[]> {
+  async getAll(userSession: IUserPayload): Promise<IPlanting[]> {
     const filter =
       userSession.userRole === "family_farmer"
         ? { user: userSession.id }
@@ -58,11 +49,9 @@ class PlantingService {
 
     checkOwnership(userSession, ownedFields(planting));
 
-    const updatePlanting = await Planting.findByIdAndUpdate(
-      id,
-      data,
-      { new: true },
-    );
+    const updatePlanting = await Planting.findByIdAndUpdate(id, data, {
+      new: true,
+    });
 
     return {
       success: true,
@@ -72,10 +61,7 @@ class PlantingService {
   }
 
   // DELETAR PLANTAÇÃO
-  async delete(
-    id: string,
-    userSession: IUserPayload,
-  ): Promise<PlantingResult> {
+  async delete(id: string, userSession: IUserPayload): Promise<PlantingResult> {
     const planting = await Planting.findById(id);
 
     if (!planting) {
@@ -96,10 +82,7 @@ class PlantingService {
   }
 
   // BUSCAR PLANTAÇÃO ESPECÍFICA
-  async getOne(
-    id: string,
-    userSession: IUserPayload,
-  ): Promise<PlantingResult> {
+  async getOne(id: string, userSession: IUserPayload): Promise<PlantingResult> {
     const planting = await Planting.findById(id);
 
     if (!planting) {

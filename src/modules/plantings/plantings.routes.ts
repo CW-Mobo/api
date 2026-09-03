@@ -1,9 +1,6 @@
 import { Router } from "express";
 import PlantingController from "./plantings.controller";
-import {
-  authMiddleware,
-  ensureUser,
-} from "../../middlewares/authMiddleware";
+import { authMiddleware, ensureUser } from "../../middlewares/authMiddleware";
 import { validateObjectId } from "../../middlewares/validateObjectId";
 
 const router = Router();

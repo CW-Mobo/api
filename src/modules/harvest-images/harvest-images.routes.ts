@@ -1,9 +1,6 @@
 import { Router } from "express";
 import HarvestImageController from "./harvest-images.controller";
-import {
-  authMiddleware,
-  ensureUser,
-} from "../../middlewares/authMiddleware";
+import { authMiddleware, ensureUser } from "../../middlewares/authMiddleware";
 
 const router = Router();
 

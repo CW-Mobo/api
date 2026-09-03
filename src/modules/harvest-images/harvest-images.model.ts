@@ -1,5 +1,4 @@
 import mongoose, { Schema, Model } from "mongoose";
-
 import { IHarvestImage } from "./harvest-images.types";
 
 const HarvestImageSchema: Schema<IHarvestImage> = new Schema({

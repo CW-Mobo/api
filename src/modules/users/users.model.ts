@@ -1,12 +1,7 @@
 import mongoose, { Schema, Model } from "mongoose";
-import {
-  IUser,
-  IFarmerDetails,
-  UserRole,
-} from "./users.types";
+import { IUser, IFarmerDetails, UserRole } from "./users.types";
 
 // SCHEMA PARA DETALHES DE AGRICULTORES FAMILIARES
-
 const FarmerDetailsSchema: Schema<IFarmerDetails> = new Schema({
   cpf: {
     type: String,
@@ -25,7 +20,6 @@ const FarmerDetailsSchema: Schema<IFarmerDetails> = new Schema({
 });
 
 // SCHEMA PRINCIPAL DO DOCUMENTO USUÁRIO
-
 const UserSchema: Schema<IUser> = new Schema(
   {
     userImage: { type: String },
@@ -81,7 +75,6 @@ const UserSchema: Schema<IUser> = new Schema(
 );
 
 // MÉTODO PARA REMOVER A SENHA DO OBJETO JSON RETORNADO
-
 UserSchema.methods.toJSON = function () {
   const userObject = this.toObject();
 
@@ -91,10 +84,6 @@ UserSchema.methods.toJSON = function () {
 };
 
 // CRIANDO O MODELO DE USUÁRIO
-
-const User: Model<IUser> = mongoose.model<IUser>(
-  "User",
-  UserSchema,
-);
+const User: Model<IUser> = mongoose.model<IUser>("User", UserSchema);
 
 export default User;

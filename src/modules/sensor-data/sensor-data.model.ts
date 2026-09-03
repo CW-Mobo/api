@@ -1,5 +1,4 @@
 import mongoose, { Schema, Model } from "mongoose";
-
 import {
   ISensorData,
   ISensorAlert,

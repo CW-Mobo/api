@@ -1,9 +1,6 @@
 import { Types } from "mongoose";
 
-export type SensorType =
-  | "air_humidity"
-  | "soil_humidity"
-  | "temperature";
+export type SensorType = "air_humidity" | "soil_humidity" | "temperature";
 
 export interface ISetting {
   temperatureLimit?: number;
@@ -25,10 +22,7 @@ export interface ISensor {
 }
 
 export interface SensorInput {
-  sensorType:
-    | "air_humidity"
-    | "soil_humidity"
-    | "temperature";
+  sensorType: "air_humidity" | "soil_humidity" | "temperature";
   sensorNumeration: string;
   sensorAccuracy: number;
   measuringRange: string;

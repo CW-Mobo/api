@@ -1,13 +1,6 @@
 import Sensor from "./sensors.model";
-
-import {
-  ISensor,
-  SensorInput,
-  SensorResult,
-} from "./sensors.types";
-
+import { ISensor, SensorInput, SensorResult } from "./sensors.types";
 import { IUserPayload } from "../../utils/jwt";
-
 import {
   checkOwnership,
   ownedFields,
@@ -16,9 +9,7 @@ import {
 
 class SensorService {
   // LISTA TODOS OS SENSORES (SEM PAGINAÇÃO)
-  async getAll(
-    userSession: IUserPayload,
-  ): Promise<ISensor[]> {
+  async getAll(userSession: IUserPayload): Promise<ISensor[]> {
     const filter =
       userSession.userRole === "family_farmer"
         ? { user: userSession.id }
@@ -28,10 +19,7 @@ class SensorService {
   }
 
   // CRIAR SENSOR
-  async create(
-    userSession: IUserPayload,
-    data: SensorInput,
-  ): Promise<ISensor> {
+  async create(userSession: IUserPayload, data: SensorInput): Promise<ISensor> {
     const newSensor = new Sensor(data);
 
     assignOwnership(userSession, newSensor);
@@ -58,11 +46,9 @@ class SensorService {
 
     checkOwnership(userSession, ownedFields(sensor));
 
-    const updatedSensor = await Sensor.findByIdAndUpdate(
-      id,
-      data,
-      { new: true },
-    );
+    const updatedSensor = await Sensor.findByIdAndUpdate(id, data, {
+      new: true,
+    });
 
     return {
       success: true,
@@ -72,10 +58,7 @@ class SensorService {
   }
 
   // DELETAR SENSOR
-  async delete(
-    id: string,
-    userSession: IUserPayload,
-  ): Promise<SensorResult> {
+  async delete(id: string, userSession: IUserPayload): Promise<SensorResult> {
     const sensor = await Sensor.findById(id);
 
     if (!sensor) {
@@ -96,10 +79,7 @@ class SensorService {
   }
 
   // BUSCAR SENSOR ESPECÍFICO
-  async getOne(
-    id: string,
-    userSession: IUserPayload,
-  ): Promise<SensorResult> {
+  async getOne(id: string, userSession: IUserPayload): Promise<SensorResult> {
     const sensor = await Sensor.findById(id);
 
     if (!sensor) {

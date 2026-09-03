@@ -1,9 +1,5 @@
 import HarvestImage from "./harvest-images.model";
-
-import {
-  IHarvestImage,
-  UploadImageResult,
-} from "./harvest-images.types";
+import { IHarvestImage, UploadImageResult } from "./harvest-images.types";
 
 class HarvestImageService {
   // BUSCAR IMAGENS DE COLHEITA DO USUÁRIO
