@@ -54,11 +54,16 @@ Entre suas responsabilidades estão autenticação, gerenciamento de usuários, 
 api/
 ├── src/
 │   ├── config/
-│   ├── controllers/
 │   ├── middlewares/
-│   ├── models/
-|   ├── routes/
-|   ├── services/
+│   ├── modules/
+|   |   ├── companies/
+|   |   ├── harvest-images/
+|   |   ├── harvests/
+|   |   ├── plantings/
+|   |   ├── sensor-data/
+|   |   ├── sensors/
+|   |   └── users/
+|   |       └── auth/
 |   ├── utils/
 │   └── index.ts
 ├── .env.example
