@@ -51,23 +51,23 @@ class PlantingController {
     const { id } = req.params;
     const plantingData: PlantingInput = req.body;
 
-    const updatedPlanting = await PlantingService.update(
+    const result = await PlantingService.update(
       id,
       user,
       plantingData,
     );
 
-    if (!updatedPlanting) {
+    if (!result.success) {
       return res.status(404).json({
         success: false,
-        message: "Plantação não encontrada ou não pôde ser atualizada.",
+        message: result.message || "Plantação não encontrada ou não pôde ser atualizada.",
       });
     }
 
     return res.status(200).json({
       success: true,
       message: "Plantação atualizada com sucesso.",
-      updatedPlanting,
+      updatedPlanting: result.planting,
     });
   });
 
@@ -76,9 +76,16 @@ class PlantingController {
     const user = req.user!;
     const { id } = req.params;
 
-    await PlantingService.delete(id, user);
+    const result = await PlantingService.delete(id, user);
 
-    return res.status(204).json({
+    if (!result.success) {
+      return res.status(404).json({
+        success: false,
+        message: result.message || "Plantação não encontrada ou não pôde ser deletada.",
+      });
+    }
+
+    return res.status(200).json({
       success: true,
       message: "Plantação deletada com sucesso.",
     });
@@ -89,18 +96,18 @@ class PlantingController {
     const user = req.user!;
     const { id } = req.params;
 
-    const planting = await PlantingService.getOne(id, user);
+    const result = await PlantingService.getOne(id, user);
 
-    if (!planting) {
+    if (!result.success) {
       return res.status(404).json({
         success: false,
-        message: "Plantação não encontrada.",
+        message: result.message || "Plantação não encontrada.",
       });
     }
 
     return res.status(200).json({
       success: true,
-      planting,
+      planting: result.planting,
     });
   });
 }

@@ -121,7 +121,11 @@ describe("PlantingService", () => {
       expect(result).toBeDefined();
       expect(result.plantingName).toBe(plantingData.plantingName);
       expect(result.plantedArea).toBe(plantingData.plantedArea);
-      expect(result.location).toEqual(plantingData.location);
+
+      expect({
+        longitude: result.location.longitude,
+        latitude: result.location.latitude,
+      }).toEqual(plantingData.location);
     });
 
     it("deve criar uma plantação para agricultor familiar", async () => {
@@ -174,7 +178,7 @@ describe("PlantingService", () => {
       );
 
       expect(checkOwnership).toHaveBeenCalledWith(companyUser, {
-        user: undefined,
+        user: "507f1f77bcf86cd799439012",
         company: companyUser.company,
       });
 

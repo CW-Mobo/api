@@ -12,7 +12,7 @@ class HarvestController {
 
     const harvests = await HarvestService.getAll(user);
 
-    if (!harvests) {
+    if (harvests.length === 0) {
       return res.status(200).json({
         success: true,
         message: "Nenhuma colheita encontrada.",
@@ -102,7 +102,7 @@ class HarvestController {
 
     const updatedHarvest = await HarvestService.update(id, user, harvestData);
 
-    if (!updatedHarvest) {
+    if (!updatedHarvest.success) {
       return res.status(404).json({
         success: false,
         message: "Colheita não encontrada ou não pôde ser atualizada.",
@@ -112,7 +112,7 @@ class HarvestController {
     return res.status(200).json({
       success: true,
       message: "Colheita atualizada com sucesso.",
-      updatedHarvest,
+      updatedHarvest: updatedHarvest.harvest,
     });
   });
 
@@ -128,11 +128,18 @@ class HarvestController {
       });
     }
 
-    await HarvestService.deleteMany(user, ids);
+    const result = await HarvestService.deleteMany(user, ids);
+
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        message: result.message || "Não foi possível deletar as colheitas.",
+      });
+    }
 
     return res.status(200).json({
       success: true,
-      message: "Colheitas deletadas com sucesso.",
+      message: result.message || "Colheitas deletadas com sucesso.",
     });
   });
 
