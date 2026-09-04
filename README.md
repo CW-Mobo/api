@@ -66,6 +66,17 @@ api/
 |   |       └── auth/
 |   ├── utils/
 │   └── index.ts
+├── tests/
+|   ├── integration/
+|   └── unit/
+|       ├── companies/
+|       ├── harvest-images/
+|       ├── harvests/
+|       ├── plantings/
+|       ├── sensor-data/
+|       ├── sensors/
+|       └── users/
+|           └── auth/
 ├── .env.example
 ├── .gitignore
 ├── LICENSE
