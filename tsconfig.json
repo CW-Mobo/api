@@ -31,5 +31,5 @@
     "sourceMap": true                     // Gera mapas de depuração (debug mais fácil)
   },
   "include": ["src/**/*"],                // Inclui tudo dentro de src/
-  "exclude": ["node_modules", "dist"]     // Ignora libs e build final
+  "exclude": ["node_modules", "dist", "tests"]     // Ignora libs e build final
 }

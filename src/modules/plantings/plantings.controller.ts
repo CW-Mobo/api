@@ -11,7 +11,7 @@ class PlantingController {
 
     const plantings = await PlantingService.getAll(user);
 
-    if (!plantings) {
+    if (plantings.length == 0) {
       return res.status(404).json({
         success: false,
         message: "Nenhuma plantação encontrada.",
