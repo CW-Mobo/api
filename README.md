@@ -65,6 +65,7 @@ api/
 |   |   └── users/
 |   |       └── auth/
 |   ├── utils/
+|   ├── app.ts
 │   └── index.ts
 ├── tests/
 |   ├── integration/
