@@ -7,21 +7,31 @@ interface OwnedDocument {
 }
 
 // EXTRAI O ID DO USUÁRIO E DA EMPRESA DE UM DOCUMENTO PARA VERIFICAÇÃO DE PROPRIEDADE
-export function ownedFields(doc: { user?: any; company?: any }) {
+export function ownedFields(doc: {
+  user?: string | Types.ObjectId;
+  company?: string | Types.ObjectId;
+}): OwnedDocument {
   return {
-    user: doc.user as Types.ObjectId | string,
-    company: doc.company as Types.ObjectId | string,
+    user: doc.user,
+    company: doc.company,
   };
 }
 
 // ATRIBUI O ID DO USUÁRIO OU DA EMPRESA AO DOCUMENTO, DEPENDENDO DO TIPO DE USUÁRIO
 export function assignOwnership<
-  T extends { user?: unknown; company?: unknown },
+  T extends {
+    user?: Types.ObjectId | string;
+    company?: Types.ObjectId | string;
+  },
 >(userSession: IUserPayload, doc: T): void {
   if (userSession.userRole === "family_farmer") {
-    doc.user = userSession.id as any;
+    doc.user = userSession.id;
   } else {
-    doc.company = userSession.company as any;
+    if (!userSession.company) {
+      throw new Error("Usuário não está vinculado a uma empresa.");
+    }
+
+    doc.company = userSession.company;
   }
 }
 
@@ -30,17 +40,18 @@ export function checkOwnership<T extends OwnedDocument>(
   userSession: IUserPayload,
   doc: T,
 ): void {
-  if (
-    userSession.userRole === "family_farmer" &&
-    (!doc.user || !new Types.ObjectId(doc.user).equals(userSession.id))
-  ) {
-    throw new Error("Acesso negado: este conteúdo não pertence a você.");
+  if (userSession.userRole === "family_farmer") {
+    if (!doc.user || !new Types.ObjectId(doc.user).equals(userSession.id)) {
+      throw new Error("Acesso negado: este conteúdo não pertence a você.");
+    }
+
+    return;
   }
 
   if (
-    userSession.userRole !== "family_farmer" &&
-    (!doc.company ||
-      !new Types.ObjectId(doc.company).equals(userSession.company))
+    !doc.company ||
+    !userSession.company ||
+    !new Types.ObjectId(doc.company).equals(userSession.company)
   ) {
     throw new Error("Acesso negado: este conteúdo não pertence à sua empresa.");
   }

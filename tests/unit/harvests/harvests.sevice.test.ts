@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { Types } from "mongoose";
 import Harvest from "../../../src/modules/harvests/harvests.model";
 import HarvestService from "../../../src/modules/harvests/harvests.service";
@@ -30,6 +30,10 @@ describe("HarvestService", () => {
     });
 
     vi.mocked(assignOwnership).mockImplementation(() => undefined);
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   const companyUser = {
@@ -430,6 +434,8 @@ describe("HarvestService", () => {
     });
 
     it("deve retornar erro quando os IDs são inválidos", async () => {
+      const findSpy = vi.spyOn(Harvest, "find");
+
       const result = await HarvestService.deleteMany(companyUser as any, [
         "id-invalido",
         "outro-id-invalido",
@@ -440,7 +446,7 @@ describe("HarvestService", () => {
         message: "IDs inválidos.",
       });
 
-      expect(Harvest.find).not.toHaveBeenCalled();
+      expect(findSpy).not.toHaveBeenCalled();
     });
 
     it("deve retornar erro quando nenhuma colheita é encontrada", async () => {

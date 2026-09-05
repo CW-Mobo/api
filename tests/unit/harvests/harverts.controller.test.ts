@@ -270,7 +270,7 @@ describe("HarvestController", () => {
 
       vi.mocked(HarvestService.update).mockResolvedValue({
         success: false,
-        message: "Colheita não encontrada",
+        message: "Colheita não encontrada ou não pôde ser atualizada.",
       });
 
       await HarvestController.updateHarvest(updateReq, res, next);
@@ -279,7 +279,7 @@ describe("HarvestController", () => {
 
       expect(res.json).toHaveBeenCalledWith({
         success: false,
-        message: "Colheita não encontrada",
+        message: "Colheita não encontrada ou não pôde ser atualizada.",
       });
     });
   });
