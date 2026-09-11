@@ -65,6 +65,7 @@ api/
 |   |   └── users/
 |   |       └── auth/
 |   ├── utils/
+|   ├── app.ts
 │   └── index.ts
 ├── tests/
 |   ├── integration/
@@ -83,7 +84,8 @@ api/
 ├── package.json
 ├── package-lock.json
 ├── README.md
-└── tsconfig.json
+├── tsconfig.json
+└── vitest.config.ts
 ```
 
 ---

@@ -1,13 +1,18 @@
 import { Router } from "express";
 import HarvestImageController from "./harvest-images.controller";
 import { authMiddleware, ensureUser } from "../../middlewares/authMiddleware";
+import { uploadHarvests } from "../../config/cloudinary";
 
 const router = Router();
 
-router.use(authMiddleware); // Todas as rotas abaixo precisam de token
-router.use(ensureUser); // Todas as rotas abaixo precisam de usuário autenticado
+router.use(authMiddleware);
+router.use(ensureUser);
 
 router.get("/", HarvestImageController.getUserImages);
-router.post("/", HarvestImageController.uploadImage);
+router.post(
+  "/",
+  uploadHarvests.single("image"),
+  HarvestImageController.uploadImage,
+);
 
 export default router;

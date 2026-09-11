@@ -1,10 +1,13 @@
 import mongoose, { Schema, Model } from "mongoose";
 import { IPlanting, ILocation } from "./plantings.types";
 
-const LocationSchema: Schema<ILocation> = new Schema({
-  longitude: { type: Number },
-  latitude: { type: Number },
-});
+const LocationSchema: Schema<ILocation> = new Schema(
+  {
+    longitude: { type: Number },
+    latitude: { type: Number },
+  },
+  { _id: false },
+);
 
 const PlantingSchema: Schema<IPlanting> = new Schema(
   {

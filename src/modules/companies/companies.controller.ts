@@ -56,7 +56,10 @@ class CompanyController {
       });
     }
 
-    const newCompany = await CompanyService.create(companyData);
+    const newCompany = await CompanyService.create({
+      ...companyData,
+      companyCNPJ: normalizedCNPJ,
+    });
 
     if (!newCompany) {
       return res.status(400).json({
