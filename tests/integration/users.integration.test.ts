@@ -275,7 +275,6 @@ describe("Users - Integration Tests", () => {
       expect(response.body.message).toBe("Conta deletada com sucesso.");
 
       const deletedUser = await User.findById(user._id);
-
       expect(deletedUser).toBeNull();
     });
 
