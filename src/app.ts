@@ -3,9 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import dns from "dns";
 import cookieParser from "cookie-parser";
-
 import { errorMiddleware } from "./middlewares/errorMiddleware";
-
 import CompanyRoutes from "./modules/companies/companies.routes";
 import HarvestRoutes from "./modules/harvests/harvests.routes";
 import HarvestImagesRoutes from "./modules/harvest-images/harvest-images.routes";
@@ -23,10 +21,7 @@ if (process.env.NODE_ENV === "development") {
   dns.setServers(["8.8.8.8", "8.8.4.4"]);
 }
 
-const allowedOrigins = [
-  "https://mobocw.vercel.app",
-  "http://localhost:3000",
-];
+const allowedOrigins = ["https://mobocw.vercel.app", "http://localhost:3000"];
 
 app.use(
   cors({
@@ -50,13 +45,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/api/auth", AuthRoutes);
-app.use("/api/company", CompanyRoutes);
-app.use("/api/harvest", HarvestRoutes);
-app.use("/api/planting", PlantingRoutes);
-app.use("/api/profile", HarvestImagesRoutes);
+app.use("/api/companies", CompanyRoutes);
+app.use("/api/harvests", HarvestRoutes);
+app.use("/api/plantings", PlantingRoutes);
+app.use("/api/harvest-images", HarvestImagesRoutes);
 app.use("/api/sensordata", SensorDataRoutes);
-app.use("/api/sensor", SensorRoutes);
-app.use("/api/user", UserRoutes);
+app.use("/api/sensors", SensorRoutes);
+app.use("/api/users", UserRoutes);
 
 app.get("/", (_req: Request, res: Response) => {
   res.status(200).json({

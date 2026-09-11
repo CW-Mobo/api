@@ -187,7 +187,10 @@ describe("CompanyController", () => {
 
       expect(CompanyService.getByCNPJ).toHaveBeenCalledWith("12345678000199");
 
-      expect(CompanyService.create).toHaveBeenCalledWith(companyData);
+      expect(CompanyService.create).toHaveBeenCalledWith({
+        ...companyData,
+        companyCNPJ: "12345678000199",
+      });
 
       expect(res.status).toHaveBeenCalledWith(201);
 

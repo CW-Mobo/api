@@ -1,5 +1,6 @@
 import { Types } from "mongoose";
 import { IUserPayload } from "./jwt";
+import { ForbiddenError } from "./errors";
 
 interface OwnedDocument {
   user?: Types.ObjectId | string;
@@ -53,6 +54,6 @@ export function checkOwnership<T extends OwnedDocument>(
     !userSession.company ||
     !new Types.ObjectId(doc.company).equals(userSession.company)
   ) {
-    throw new Error("Acesso negado: este conteúdo não pertence à sua empresa.");
+    throw new ForbiddenError("Acesso negado: este conteúdo não pertence à sua empresa.");
   }
 }
