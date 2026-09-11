@@ -8,6 +8,7 @@
 ![Express](https://img.shields.io/badge/Express-API-000000?logo=express)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb)
 ![JWT](https://img.shields.io/badge/JWT-autenticação-000000?logo=jsonwebtokens)
+![Vitest](https://img.shields.io/badge/Vitest-6E9F18?logo=vitest&logoColor=white)
 
 ---
 
@@ -45,6 +46,37 @@ Entre suas responsabilidades estão autenticação, gerenciamento de usuários, 
 - **Cloudinary** — armazenamento e gerenciamento de imagens
 - **dotenv** — gerenciamento de variáveis de ambiente
 - **Vitest** — testes automatizados
+
+---
+
+## 🧪 Testes
+
+A API possui testes automatizados utilizando **Vitest**, com testes unitários e de integração para os principais módulos da aplicação.
+
+A cobertura atual do projeto é de aproximadamente:
+
+* **94,02%** — Statements
+* **94,28%** — Lines
+* **93,26%** — Functions
+* **85,31%** — Branches
+
+Para executar os testes:
+
+```bash
+npm test
+```
+
+Para executar os testes uma única vez:
+
+```bash
+npm run test:run
+```
+
+Para gerar o relatório de cobertura:
+
+```bash
+npm run test:coverage
+```
 
 ---
 
