@@ -49,7 +49,7 @@ app.use("/api/companies", CompanyRoutes);
 app.use("/api/harvests", HarvestRoutes);
 app.use("/api/plantings", PlantingRoutes);
 app.use("/api/harvest-images", HarvestImagesRoutes);
-app.use("/api/sensordata", SensorDataRoutes);
+app.use("/api/sensor-data", SensorDataRoutes);
 app.use("/api/sensors", SensorRoutes);
 app.use("/api/users", UserRoutes);
 
