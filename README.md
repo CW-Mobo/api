@@ -44,6 +44,7 @@ Entre suas responsabilidades estão autenticação, gerenciamento de usuários, 
 - **Express** — framework para construção da API REST
 - **MongoDB Atlas** — hospedagem do banco de dados
 - **JWT** — autenticação baseada em tokens
+- **Swagger / OpenAPI 3.0** — documentação e exploração interativa da API
 - **Axios** — comunicação com serviços externos
 - **Cloudinary** — armazenamento e gerenciamento de imagens
 - **dotenv** — gerenciamento de variáveis de ambiente
