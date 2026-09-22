@@ -8,6 +8,7 @@
 ![Express](https://img.shields.io/badge/Express-API-000000?logo=express)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb)
 ![JWT](https://img.shields.io/badge/JWT-autenticação-000000?logo=jsonwebtokens)
+![Swagger](https://img.shields.io/badge/Swagger-OpenAPI%203.0-85EA2D?logo=swagger&logoColor=black)
 ![Vitest](https://img.shields.io/badge/Vitest-6E9F18?logo=vitest&logoColor=white)
 
 ---
@@ -32,6 +33,7 @@ Entre suas responsabilidades estão autenticação, gerenciamento de usuários, 
 - 📈 Consulta de dados históricos
 - 🔑 Controle de acesso baseado em autenticação
 - ☁️ Integração com serviços de armazenamento em nuvem
+- 📚 Documentação da API através do Swagger/OpenAPI
 
 ---
 
@@ -188,11 +190,28 @@ A API ficará disponível em `http://localhost:5000`.
 
 ## 📚 Documentação da API
 
-A documentação dos endpoints da API está disponibilizada através do Swagger.
+A API possui documentação interativa utilizando **Swagger UI** baseada na especificação **OpenAPI 3.0**.
 
-**Desenvolvimento:** http://localhost:5000/api-docs
+A documentação inclui:
 
-**Produção:** https://mobo-m9ug.onrender.com/api-docs
+- Endpoints disponíveis na API
+- Parâmetros de requisição
+- Schemas de dados
+- Exemplos de requisições e respostas
+- Códigos de status HTTP
+- Autenticação por JWT
+- Autenticação através de cookies
+- Organização da documentação por módulos
+
+### Swagger UI
+
+**Desenvolvimento:**
+
+http://localhost:5000/api-docs
+
+**Produção:** 
+
+https://mobo-m9ug.onrender.com/api-docs
 
 ---
 
