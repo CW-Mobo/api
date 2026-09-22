@@ -1,0 +1,254 @@
+/companies:
+  get:
+    tags:
+      - Companies
+
+    summary: Listar todas as empresas
+
+    description: |
+      Retorna todas as empresas cadastradas.
+      Esta rota requer autenticação por JWT através de cookie HTTP-only
+      ou do header Authorization.
+
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+
+    responses:
+      "200":
+        description: Empresas encontradas com sucesso.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+
+                companies:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Company"
+
+      "401":
+        description: Token não fornecido ou não autorizado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+      "404":
+        description: Nenhuma empresa encontrada.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+  post:
+    tags:
+      - Companies
+
+    summary: Criar uma nova empresa
+
+    description: |
+      Cria uma nova empresa.
+
+      O CNPJ pode ser enviado com ou sem formatação.
+      A API remove caracteres não numéricos antes de validar o CNPJ.
+
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CompanyInput"
+
+    responses:
+      "201":
+        description: Empresa criada com sucesso.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+
+                message:
+                  type: string
+                  example: "Empresa criada com sucesso."
+
+                newCompany:
+                  $ref: "#/components/schemas/Company"
+
+      "400":
+        description: Dados inválidos ou CNPJ já cadastrado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+      "401":
+        description: Token não fornecido ou não autorizado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+/companies/{id}:
+  get:
+    tags:
+      - Companies
+
+    summary: Buscar uma empresa
+
+    description: Retorna uma empresa específica pelo seu ID.
+
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+
+    parameters:
+      - $ref: "#/components/parameters/CompanyId"
+
+    responses:
+      "200":
+        description: Empresa encontrada com sucesso.
+        content:
+          application/json:
+            schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: true
+
+              company:
+                $ref: "#/components/schemas/Company"
+
+      "401":
+        description: Token não fornecido ou não autorizado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+      "404":
+        description: Empresa não encontrada.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+      "400":
+        description: ID inválido.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+  put:
+    tags:
+      - Companies
+
+    summary: Atualizar uma empresa
+
+    description: Atualiza os dados de uma empresa existente.
+
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+
+    parameters:
+      - $ref: "#/components/parameters/CompanyId"
+
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CompanyInput"
+
+    responses:
+      "200":
+        description: Empresa atualizada com sucesso.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+
+                message:
+                  type: string
+                  example: "Empresa atualizada com sucesso."
+
+                updatedCompany:
+                  $ref: "#/components/schemas/Company"
+
+      "401":
+        description: Token não fornecido ou não autorizado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+      "404":
+        description: Empresa não encontrada ou não pôde ser atualizada.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+  delete:
+    tags:
+      - Companies
+
+    summary: Deletar uma empresa
+
+    description: Remove uma empresa pelo seu ID.
+
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+
+    parameters:
+      - $ref: "#/components/parameters/CompanyId"
+
+    responses:
+      "200":
+        description: Empresa deletada com sucesso.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+
+                message:
+                  type: string
+                  example: "Empresa deletada com sucesso."
+
+      "401":
+        description: Token não fornecido ou não autorizado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+      "404":
+        description: Empresa não encontrada.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"

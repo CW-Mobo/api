@@ -1,0 +1,141 @@
+LoginInput:
+  type: object
+  properties:
+    userEmail:
+      type: string
+      format: email
+      description: E-mail do usuário.
+      example: "joao@example.com"
+
+    userPassword:
+      type: string
+      format: password
+      description: Senha do usuário.
+      example: "SenhaSegura123"
+
+  required:
+    - userEmail
+    - userPassword
+
+AuthUser:
+  type: object
+  properties:
+    id:
+      type: string
+      description: ID do usuário.
+      example: "665f1a2b3c4d5e6f78901234"
+
+    userImage:
+      type: string
+      description: URL ou caminho da imagem do usuário.
+      example: "uploads/users/profile.jpg"
+
+    userName:
+      type: string
+      example: "João da Silva"
+
+    userEmail:
+      type: string
+      format: email
+      example: "joao@example.com"
+
+    userPhone:
+      type: string
+      example: "+5515999999999"
+
+    userRole:
+      type: string
+      enum:
+        - family_farmer
+        - company_admin
+        - company_worker
+      example: "company_worker"
+
+    company:
+      type: string
+      description: ID da empresa associada ao usuário.
+      example: "665f1a2b3c4d5e6f78901234"
+
+    farmerDetails:
+      $ref: "#/components/schemas/FarmerDetails"
+
+AuthResponse:
+  type: object
+  properties:
+    success:
+      type: boolean
+      example: true
+
+    message:
+      type: string
+      example: "Login efetuado com sucesso!"
+
+    token:
+      type: string
+      description: JWT retornado para clientes mobile e SPA.
+      example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+
+    user:
+      $ref: "#/components/schemas/AuthUser"
+
+  required:
+    - success
+    - message
+    - token
+    - user
+
+RegisterInput:
+  type: object
+  properties:
+    userName:
+      type: string
+      example: "João da Silva"
+
+    userEmail:
+      type: string
+      format: email
+      example: "joao@example.com"
+
+    userPassword:
+      type: string
+      format: password
+      example: "SenhaSegura123"
+
+    userPhone:
+      type: string
+      example: "+5515999999999"
+
+    userRole:
+      type: string
+      enum:
+        - family_farmer
+        - company_admin
+        - company_worker
+      example: "family_farmer"
+
+    company:
+      type: string
+      description: ID da empresa. Obrigatório para usuários que não são agricultores familiares.
+      example: "665f1a2b3c4d5e6f78901234"
+
+    farmerDetails:
+      type: object
+      properties:
+        cpf:
+          type: string
+          example: "123.456.789-00"
+
+        dap:
+          type: string
+          example: "ABC1234567"
+
+    userImage:
+      type: string
+      format: binary
+      description: Imagem do usuário.
+
+  required:
+    - userName
+    - userEmail
+    - userPassword
+    - userRole

@@ -1,0 +1,146 @@
+Harvest:
+  type: object
+  properties:
+    _id:
+      type: string
+      description: Identificador único da colheita.
+      example: "665f1a2b3c4d5e6f78901234"
+
+    harvestedQuantity:
+      type: number
+      format: double
+      description: Quantidade colhida.
+      example: 150.5
+
+    quality:
+      type: number
+      format: double
+      description: Qualidade da colheita.
+      example: 85
+
+    harvestDate:
+      type: string
+      format: date-time
+      description: Data da colheita.
+      example: "2026-09-22T00:00:00.000Z"
+
+    harvestStart:
+      type: string
+      description: Horário de início da colheita.
+      example: "08:30"
+
+    harvestEnd:
+      type: string
+      description: Horário de término da colheita.
+      example: "11:45"
+
+    harvestDuration:
+      type: string
+      description: Duração da colheita.
+      example: "03:15:00"
+
+    planting:
+      $ref: "#/components/schemas/Planting"
+
+    user:
+      type: string
+      description: ID do usuário responsável pela colheita.
+      example: "665f1a2b3c4d5e6f78901234"
+
+    company:
+      type: string
+      description: ID da empresa associada à colheita.
+      example: "665f1a2b3c4d5e6f78901234"
+
+    createdAt:
+      type: string
+      format: date-time
+      description: Data de criação do registro.
+      example: "2026-09-22T19:30:00.000Z"
+
+    updatedAt:
+      type: string
+      format: date-time
+      description: Data da última atualização do registro.
+      example: "2026-09-22T19:30:00.000Z"
+
+  required:
+    - harvestedQuantity
+    - quality
+    - harvestDate
+    - harvestStart
+    - harvestEnd
+    - harvestDuration
+    - planting
+    - createdAt
+    - updatedAt
+
+HarvestInput:
+  type: object
+  properties:
+    harvestedQuantity:
+      type: number
+      format: double
+      description: Quantidade colhida. Deve ser maior que zero.
+      example: 150.5
+
+    quality:
+      type: number
+      format: double
+      description: Qualidade da colheita.
+      example: 85
+
+    harvestDate:
+      type: string
+      format: date-time
+      description: Data da colheita.
+      example: "2026-09-22T00:00:00.000Z"
+
+    harvestStart:
+      type: string
+      format: date-time
+      description: Data e horário de início da colheita.
+      example: "2026-09-22T08:30:00.000Z"
+
+    harvestEnd:
+      type: string
+      format: date-time
+      description: Data e horário de término da colheita.
+      example: "2026-09-22T11:45:00.000Z"
+
+    harvestDuration:
+      type: number
+      description: Duração da colheita.
+      example: 11700
+
+    planting:
+      type: string
+      description: ID da plantação relacionada à colheita.
+      pattern: "^[a-fA-F0-9]{24}$"
+      example: "665f1a2b3c4d5e6f78901234"
+
+  required:
+    - harvestedQuantity
+    - quality
+    - harvestDate
+    - harvestStart
+    - harvestEnd
+    - harvestDuration
+    - planting
+
+HarvestDeleteInput:
+  type: object
+  properties:
+    ids:
+      type: array
+      description: IDs das colheitas que serão excluídas.
+      items:
+        type: string
+        pattern: "^[a-fA-F0-9]{24}$"
+        example: "665f1a2b3c4d5e6f78901234"
+      minItems: 1
+      example:
+        - "665f1a2b3c4d5e6f78901234"
+        - "665f1a2b3c4d5e6f78901235"
+  required:
+    - ids

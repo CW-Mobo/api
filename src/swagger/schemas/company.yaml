@@ -1,0 +1,113 @@
+Company:
+  type: object
+  properties:
+    _id:
+      type: string
+      description: Identificador único da empresa.
+      example: "665f1a2b3c4d5e6f78901234"
+
+    companyCNPJ:
+      type: string
+      description: CNPJ da empresa.
+      example: "12345678000195"
+
+    ownerName:
+      type: string
+      description: Nome do responsável pela empresa.
+      example: "João da Silva"
+
+    companyName:
+      type: string
+      description: Nome da empresa.
+      example: "Mobo Farms"
+
+    subscriptionPlan:
+      $ref: "#/components/schemas/SubscriptionPlan"
+
+    companyAddress:
+      $ref: "#/components/schemas/CompanyAddress"
+
+    createdAt:
+      type: string
+      format: date-time
+      description: Data de criação da empresa.
+      example: "2026-09-22T19:30:00.000Z"
+
+    updatedAt:
+      type: string
+      format: date-time
+      description: Data da última atualização da empresa.
+      example: "2026-09-22T19:30:00.000Z"
+
+  required:
+    - companyCNPJ
+    - ownerName
+    - subscriptionPlan
+    - createdAt
+    - updatedAt
+
+SubscriptionPlan:
+  type: object
+  properties:
+    maxUsers:
+      type: integer
+      description: Número máximo de usuários permitidos.
+      default: 5
+      example: 5
+
+    isActive:
+      type: boolean
+      description: Indica se o plano está ativo.
+      default: true
+      example: true
+
+CompanyAddress:
+  type: object
+  properties:
+    state:
+      type: string
+      description: Estado da empresa.
+      example: "SP"
+
+    city:
+      type: string
+      description: Cidade da empresa.
+      example: "Sorocaba"
+
+    zipCode:
+      type: string
+      description: CEP da empresa.
+      example: "18000000"
+
+  required:
+    - state
+    - city
+
+CompanyInput:
+  type: object
+  properties:
+    companyCNPJ:
+      type: string
+      description: CNPJ da empresa. A API remove caracteres não numéricos antes da validação.
+      example: "12345678000195"
+
+    ownerName:
+      type: string
+      description: Nome do responsável pela empresa.
+      example: "João da Silva"
+
+    companyName:
+      type: string
+      description: Nome da empresa.
+      example: "Mobo Farms"
+
+    subscriptionPlan:
+      $ref: "#/components/schemas/SubscriptionPlan"
+
+    companyAddress:
+      $ref: "#/components/schemas/CompanyAddress"
+
+  required:
+    - companyCNPJ
+    - ownerName
+    - companyName

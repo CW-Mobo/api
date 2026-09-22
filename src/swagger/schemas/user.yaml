@@ -1,0 +1,134 @@
+User:
+  type: object
+  properties:
+    _id:
+      type: string
+      description: Identificador único do usuário.
+      example: "665f1a2b3c4d5e6f78901234"
+
+    userImage:
+      type: string
+      description: URL ou caminho da imagem do usuário.
+      example: "uploads/users/profile.jpg"
+
+    userName:
+      type: string
+      description: Nome do usuário.
+      example: "João da Silva"
+
+    userEmail:
+      type: string
+      format: email
+      description: E-mail do usuário.
+      example: "joao@example.com"
+
+    userPhone:
+      type: string
+      description: Telefone do usuário.
+      example: "+5515999999999"
+
+    userRole:
+      type: string
+      enum:
+        - family_farmer
+        - company_admin
+        - company_worker
+      description: Função do usuário no sistema.
+      example: "company_worker"
+
+    company:
+      type: string
+      description: ID da empresa associada ao usuário.
+      example: "665f1a2b3c4d5e6f78901234"
+
+    farmerDetails:
+      $ref: "#/components/schemas/FarmerDetails"
+
+    createdAt:
+      type: string
+      format: date-time
+      example: "2026-09-22T19:30:00.000Z"
+
+    updatedAt:
+      type: string
+      format: date-time
+      example: "2026-09-22T19:30:00.000Z"
+
+  required:
+    - userName
+    - userEmail
+    - userRole
+    - createdAt
+    - updatedAt
+
+FarmerDetails:
+  type: object
+  properties:
+    cpf:
+      type: string
+      description: CPF do agricultor familiar.
+      pattern: "^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$"
+      example: "123.456.789-00"
+
+    dap:
+      type: string
+      description: DAP do agricultor familiar.
+      minLength: 10
+      example: "ABC1234567"
+
+  required:
+    - cpf
+    - dap
+
+UserInput:
+  type: object
+  properties:
+    userName:
+      type: string
+      description: Nome do usuário.
+      example: "João da Silva"
+
+    userEmail:
+      type: string
+      format: email
+      description: E-mail do usuário.
+      example: "joao@example.com"
+
+    userPassword:
+      type: string
+      format: password
+      description: Senha do usuário.
+      example: "SenhaSegura123"
+
+    userPhone:
+      type: string
+      description: Telefone do usuário.
+      example: "+5515999999999"
+
+    userRole:
+      type: string
+      enum:
+        - family_farmer
+        - company_admin
+        - company_worker
+      description: Função do usuário.
+      example: "company_worker"
+
+    company:
+      type: string
+      description: ID da empresa associada ao usuário.
+      example: "665f1a2b3c4d5e6f78901234"
+
+    farmerDetails:
+      $ref: "#/components/schemas/FarmerDetails"
+
+    userImage:
+      type: string
+      description: Caminho ou URL da imagem do usuário.
+      example: "uploads/users/profile.jpg"
+
+  required:
+    - userName
+    - userEmail
+    - userPassword
+    - userRole

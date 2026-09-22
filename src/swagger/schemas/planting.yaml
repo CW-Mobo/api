@@ -1,0 +1,104 @@
+Location:
+  type: object
+  description: Coordenadas geográficas da plantação.
+  properties:
+    longitude:
+      type: number
+      format: double
+      description: Longitude da localização da plantação.
+      example: -47.4567
+    latitude:
+      type: number
+      format: double
+      description: Latitude da localização da plantação.
+      example: -23.5012
+  required:
+    - longitude
+    - latitude
+
+Planting:
+  type: object
+  properties:
+    _id:
+      type: string
+      description: Identificador único da plantação.
+      example: "665f1a2b3c4d5e6f78901234"
+
+    plantingName:
+      type: string
+      description: Nome da plantação.
+      example: "Talhão de Lichia A"
+
+    plantingDate:
+      type: string
+      format: date-time
+      description: Data da plantação.
+      example: "2026-09-15T10:00:00.000Z"
+
+    plantedArea:
+      type: number
+      format: double
+      description: Área plantada.
+      example: 2.5
+
+    location:
+      $ref: "#/components/schemas/Location"
+
+    user:
+      type: string
+      description: ID do usuário responsável pela plantação.
+      example: "665f1a2b3c4d5e6f78901234"
+
+    company:
+      type: string
+      description: ID da empresa associada à plantação.
+      example: "665f1a2b3c4d5e6f78901234"
+
+    createdAt:
+      type: string
+      format: date-time
+      description: Data de criação do registro.
+      example: "2026-09-22T19:30:00.000Z"
+
+    updatedAt:
+      type: string
+      format: date-time
+      description: Data da última atualização do registro.
+      example: "2026-09-22T19:30:00.000Z"
+
+  required:
+    - plantingName
+    - plantingDate
+    - plantedArea
+    - location
+    - createdAt
+    - updatedAt
+
+PlantingInput:
+  type: object
+  properties:
+    plantingName:
+      type: string
+      description: Nome da plantação.
+      example: "Talhão de Lichia A"
+
+    plantingDate:
+      type: string
+      format: date-time
+      description: Data da plantação.
+      example: "2026-09-15T10:00:00.000Z"
+
+    plantedArea:
+      type: number
+      format: double
+      description: Área plantada.
+      example: 2.5
+
+    location:
+      $ref: "#/components/schemas/Location"
+
+  required:
+    - plantingName
+    - plantingDate
+    - plantedArea
+    - location

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import CompanyService, { CompanyInput } from "./companies.service";
+import { CompanyInput } from "./companies.types";
+import CompanyService from "./companies.service";
 import asyncHandler from "../../utils/asyncHandler";
 
 class CompanyController {

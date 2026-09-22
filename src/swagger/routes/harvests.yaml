@@ -1,0 +1,315 @@
+/harvests:
+  get:
+    tags:
+      - Harvests
+    summary: Listar todas as colheitas
+    description: |
+      Retorna todas as colheitas às quais o usuário autenticado possui acesso.
+
+      - Agricultores familiares recebem suas próprias colheitas.
+      - Usuários vinculados a uma empresa recebem as colheitas da empresa.
+
+      As plantações relacionadas são retornadas através de `populate`.
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+    responses:
+      "200":
+        description: Colheitas encontradas.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                harvests:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Harvest"
+              required:
+                - success
+                - harvests
+
+      "401":
+        description: Token não fornecido, inválido ou usuário não autenticado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+      "200_empty":
+        description: Nenhuma colheita encontrada.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  example: "Nenhuma colheita encontrada."
+
+  post:
+    tags:
+      - Harvests
+    summary: Criar colheita
+    description: |
+      Cria um novo registro de colheita.
+
+      A associação com usuário ou empresa é definida automaticamente
+      com base no usuário autenticado.
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/HarvestInput"
+    responses:
+      "201":
+        description: Colheita cadastrada com sucesso.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  example: "Colheita cadastrada com sucesso."
+                newHarvest:
+                  $ref: "#/components/schemas/Harvest"
+              required:
+                - success
+                - message
+                - newHarvest
+
+      "400":
+        description: Dados inválidos ou não foi possível cadastrar a colheita.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+      "401":
+        description: Token não fornecido, inválido ou usuário não autenticado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+  delete:
+    tags:
+      - Harvests
+    summary: Deletar várias colheitas
+    description: |
+      Exclui uma ou várias colheitas através de seus IDs.
+
+      Todos os registros precisam pertencer ao usuário ou empresa
+      associados à sessão autenticada.
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/HarvestDeleteInput"
+    responses:
+      "200":
+        description: Colheitas deletadas com sucesso.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  example: "Colheitas deletadas com sucesso."
+              required:
+                - success
+                - message
+
+      "400":
+        description: Nenhum ID informado, IDs inválidos ou nenhuma colheita encontrada.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+      "401":
+        description: Token não fornecido, inválido ou usuário não autenticado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+/harvests/paginated:
+  get:
+    tags:
+      - Harvests
+    summary: Listar colheitas com paginação
+    description: |
+      Retorna as colheitas do usuário autenticado utilizando paginação.
+
+      O limite máximo de resultados por página é 20.
+      As colheitas são ordenadas pela data da colheita em ordem decrescente.
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+    parameters:
+      - $ref: "#/components/parameters/Page"
+      - $ref: "#/components/parameters/Limit"
+    responses:
+      "200":
+        description: Resultado paginado das colheitas.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  description: Presente quando não há colheitas na página solicitada.
+                  example: "Nenhuma colheita nesta página."
+                harvests:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Harvest"
+                totalPages:
+                  type: integer
+                  example: 5
+                totalCount:
+                  type: integer
+                  example: 47
+                currentPage:
+                  type: integer
+                  example: 1
+              required:
+                - success
+                - harvests
+                - totalPages
+                - totalCount
+                - currentPage
+
+      "401":
+        description: Token não fornecido, inválido ou usuário não autenticado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+/harvests/{id}:
+  put:
+    tags:
+      - Harvests
+    summary: Atualizar colheita
+    description: |
+      Atualiza uma colheita existente.
+
+      O usuário só pode atualizar uma colheita à qual possui acesso.
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+    parameters:
+      - $ref: "#/components/parameters/HarvestId"
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/HarvestInput"
+    responses:
+      "200":
+        description: Colheita atualizada com sucesso.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  example: "Colheita atualizada com sucesso."
+                updatedHarvest:
+                  $ref: "#/components/schemas/Harvest"
+              required:
+                - success
+                - message
+                - updatedHarvest
+
+      "401":
+        description: Token não fornecido, inválido ou usuário não autenticado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+      "404":
+        description: Colheita não encontrada ou não pôde ser atualizada.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+  get:
+    tags:
+      - Harvests
+    summary: Buscar colheita por ID
+    description: |
+      Retorna uma colheita específica.
+
+      A plantação relacionada também é retornada através de `populate`.
+      O usuário só pode consultar uma colheita à qual possui acesso.
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+    parameters:
+      - $ref: "#/components/parameters/HarvestId"
+    responses:
+      "200":
+        description: Colheita encontrada.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                harvest:
+                  $ref: "#/components/schemas/Harvest"
+              required:
+                - success
+                - harvest
+
+      "401":
+        description: Token não fornecido, inválido ou usuário não autenticado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+      "404":
+        description: Colheita não encontrada.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"

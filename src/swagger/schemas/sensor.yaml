@@ -1,0 +1,109 @@
+Setting:
+  type: object
+  description: Limites de configuração utilizados pelos sensores.
+  properties:
+    temperatureLimit:
+      type: number
+      description: Limite de temperatura em °C. Obrigatório quando o sensor possui o tipo temperature.
+      minimum: -10
+      maximum: 50
+      example: 30
+    soilHumidityLimit:
+      type: number
+      description: Limite de umidade do solo em porcentagem. Obrigatório quando o sensor possui o tipo soil_humidity.
+      minimum: 0
+      maximum: 100
+      example: 60
+    airHumidityLimit:
+      type: number
+      description: Limite de umidade do ar.
+      example: 70
+
+Sensor:
+  type: object
+  properties:
+    _id:
+      type: string
+      description: Identificador único do sensor.
+      example: "665f1a2b3c4d5e6f78901234"
+    sensorType:
+      type: array
+      description: Tipos de medição realizados pelo sensor.
+      items:
+        type: string
+        enum:
+          - air_humidity
+          - soil_humidity
+          - temperature
+      example:
+        - temperature
+        - air_humidity
+    sensorNumeration:
+      type: string
+      description: Identificação ou numeração do sensor.
+      example: "SENSOR-001"
+    sensorAccuracy:
+      type: number
+      description: Precisão do sensor.
+      example: 0.5
+    measuringRange:
+      type: string
+      description: Faixa de medição suportada pelo sensor.
+      example: "-10°C a 50°C"
+    setting:
+      $ref: "#/components/schemas/Setting"
+    user:
+      type: string
+      description: ID do usuário responsável pelo sensor.
+      example: "665f1a2b3c4d5e6f78901234"
+    company:
+      type: string
+      description: ID da empresa associada ao sensor.
+      example: "665f1a2b3c4d5e6f78901234"
+    createdAt:
+      type: string
+      format: date-time
+      description: Data de criação do sensor.
+      example: "2026-09-22T19:30:00.000Z"
+    updatedAt:
+      type: string
+      format: date-time
+      description: Data da última atualização do sensor.
+      example: "2026-09-22T19:30:00.000Z"
+  required:
+    - sensorType
+    - createdAt
+    - updatedAt
+
+SensorInput:
+  type: object
+  description: Dados necessários para cadastrar ou atualizar um sensor.
+  properties:
+    sensorType:
+      type: string
+      description: Tipo de medição do sensor.
+      enum:
+        - air_humidity
+        - soil_humidity
+        - temperature
+      example: "temperature"
+    sensorNumeration:
+      type: string
+      description: Identificação ou numeração do sensor.
+      example: "SENSOR-001"
+    sensorAccuracy:
+      type: number
+      description: Precisão do sensor.
+      example: 0.5
+    measuringRange:
+      type: string
+      description: Faixa de medição suportada pelo sensor.
+      example: "-10°C a 50°C"
+    setting:
+      $ref: "#/components/schemas/Setting"
+  required:
+    - sensorType
+    - sensorNumeration
+    - sensorAccuracy
+    - measuringRange
+    - setting

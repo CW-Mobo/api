@@ -1,0 +1,242 @@
+/plantings:
+  get:
+    tags:
+      - Plantings
+    summary: Listar plantações
+    description: |
+      Retorna todas as plantações às quais o usuário autenticado possui acesso.
+
+      - Agricultores familiares recebem apenas suas próprias plantações.
+      - Usuários vinculados a uma empresa recebem as plantações da empresa.
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+    responses:
+      "200":
+        description: Plantações encontradas.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                plantings:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Planting"
+              required:
+                - success
+                - plantings
+
+      "401":
+        description: Token não fornecido, inválido ou usuário não autenticado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+      "404":
+        description: Nenhuma plantação encontrada.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+  post:
+    tags:
+      - Plantings
+    summary: Criar plantação
+    description: |
+      Cria uma nova plantação.
+
+      A propriedade `user` ou `company` não deve ser enviada pelo cliente.
+      A associação é definida automaticamente com base no usuário autenticado.
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PlantingInput"
+    responses:
+      "201":
+        description: Plantação cadastrada com sucesso.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  example: "Plantação cadastrada com sucesso."
+                newPlanting:
+                  $ref: "#/components/schemas/Planting"
+              required:
+                - success
+                - message
+                - newPlanting
+
+      "400":
+        description: Não foi possível cadastrar a plantação.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+      "401":
+        description: Token não fornecido, inválido ou usuário não autenticado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+/plantings/{id}:
+  put:
+    tags:
+      - Plantings
+    summary: Atualizar plantação
+    description: |
+      Atualiza uma plantação existente.
+
+      O usuário só pode atualizar uma plantação à qual possui acesso.
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+    parameters:
+      - $ref: "#/components/parameters/PlantingId"
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PlantingInput"
+    responses:
+      "200":
+        description: Plantação atualizada com sucesso.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  example: "Plantação atualizada com sucesso."
+                updatedPlanting:
+                  $ref: "#/components/schemas/Planting"
+              required:
+                - success
+                - message
+                - updatedPlanting
+
+      "401":
+        description: Token não fornecido, inválido ou usuário não autenticado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+      "404":
+        description: Plantação não encontrada ou não pôde ser atualizada.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+  delete:
+    tags:
+      - Plantings
+    summary: Deletar plantação
+    description: |
+      Remove uma plantação existente.
+
+      O usuário só pode deletar uma plantação à qual possui acesso.
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+    parameters:
+      - $ref: "#/components/parameters/PlantingId"
+    responses:
+      "200":
+        description: Plantação deletada com sucesso.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  example: "Plantação deletada com sucesso."
+              required:
+                - success
+                - message
+
+      "401":
+        description: Token não fornecido, inválido ou usuário não autenticado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+      "404":
+        description: Plantação não encontrada ou não pôde ser deletada.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+  get:
+    tags:
+      - Plantings
+    summary: Buscar plantação por ID
+    description: |
+      Retorna uma plantação específica.
+
+      O usuário só pode consultar uma plantação à qual possui acesso.
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+    parameters:
+      - $ref: "#/components/parameters/PlantingId"
+    responses:
+      "200":
+        description: Plantação encontrada.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                planting:
+                  $ref: "#/components/schemas/Planting"
+              required:
+                - success
+                - planting
+
+      "401":
+        description: Token não fornecido, inválido ou usuário não autenticado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+      "404":
+        description: Plantação não encontrada.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"

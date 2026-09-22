@@ -4,7 +4,7 @@ import cors from "cors";
 import dns from "dns";
 import cookieParser from "cookie-parser";
 import swaggerUi from "swagger-ui-express";
-import { swaggerSpec } from "./config/swagger";
+import swaggerDocument from "./swagger/swagger.config";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
 import CompanyRoutes from "./modules/companies/companies.routes";
 import HarvestRoutes from "./modules/harvests/harvests.routes";
@@ -47,7 +47,7 @@ app.use(
 app.use(
   "/api-docs",
   swaggerUi.serve,
-  swaggerUi.setup(swaggerSpec, {
+  swaggerUi.setup(swaggerDocument, {
     swaggerOptions: {
       withCredentials: true,
     },
@@ -58,7 +58,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/api/auth", AuthRoutes);
 app.use("/api/companies", CompanyRoutes);

@@ -1,0 +1,98 @@
+/harvest-images:
+  get:
+    tags:
+      - Harvest Images
+    summary: Listar imagens de colheita
+    description: |
+      Retorna todas as imagens de colheita associadas ao usuário autenticado.
+
+      As imagens são ordenadas da mais recente para a mais antiga.
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+    responses:
+      "200":
+        description: Imagens encontradas ou lista vazia.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                images:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/HarvestImage"
+              required:
+                - success
+                - images
+
+      "401":
+        description: Token não fornecido, inválido ou usuário não autenticado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+  post:
+    tags:
+      - Harvest Images
+    summary: Enviar imagem de colheita
+    description: |
+      Envia uma imagem de colheita para armazenamento.
+
+      O arquivo deve ser enviado no campo `image`.
+      O nome do arquivo armazenado é registrado no banco de dados
+      e associado automaticamente ao usuário autenticado.
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              image:
+                type: string
+                format: binary
+                description: Arquivo de imagem da colheita.
+            required:
+              - image
+    responses:
+      "201":
+        description: Imagem enviada com sucesso.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  example: "Imagem enviada com sucesso!"
+                image:
+                  $ref: "#/components/schemas/HarvestImage"
+              required:
+                - success
+                - message
+                - image
+
+      "400":
+        description: Nenhum arquivo foi enviado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+      "401":
+        description: Token não fornecido, inválido ou usuário não autenticado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"

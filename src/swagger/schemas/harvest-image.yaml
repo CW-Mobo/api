@@ -1,0 +1,37 @@
+HarvestImage:
+  type: object
+  properties:
+    _id:
+      type: string
+      description: Identificador único da imagem.
+      example: "665f1a2b3c4d5e6f78901234"
+
+    user:
+      type: string
+      description: ID do usuário associado à imagem.
+      example: "665f1a2b3c4d5e6f78901234"
+
+    company:
+      type: string
+      description: ID da empresa associada à imagem.
+      example: "665f1a2b3c4d5e6f78901234"
+
+    imageName:
+      type: string
+      description: Nome do arquivo da imagem armazenada.
+      example: "harvest-1727020800000.jpg"
+
+    description:
+      type: string
+      description: Descrição da imagem.
+      example: "Colheita de lichias do talhão A."
+
+    createdAt:
+      type: string
+      format: date-time
+      description: Data de criação do registro da imagem.
+      example: "2026-09-22T19:30:00.000Z"
+
+  required:
+    - imageName
+    - createdAt

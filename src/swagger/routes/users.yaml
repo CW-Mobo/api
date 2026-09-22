@@ -1,0 +1,201 @@
+/users:
+  get:
+    tags:
+      - Users
+
+    summary: Listar usuários da empresa
+
+    description: |
+      Retorna todos os usuários pertencentes à empresa do usuário autenticado.
+      O ID da empresa é obtido diretamente do JWT.
+
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+
+    responses:
+      "200":
+        description: Usuários encontrados com sucesso.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+
+                users:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/User"
+
+      "401":
+        description: Token não fornecido ou não autorizado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+      "404":
+        description: Nenhum usuário encontrado para a empresa.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+  put:
+    tags:
+      - Users
+
+    summary: Atualizar usuário autenticado
+
+    description: |
+      Atualiza os dados do usuário atualmente autenticado.
+      O ID do usuário é obtido diretamente do JWT e não precisa ser enviado
+      como parâmetro.
+
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UserInput"
+
+    responses:
+      "200":
+        description: Usuário atualizado com sucesso.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+
+                message:
+                  type: string
+                  example: "Usuário atualizado com sucesso."
+
+                updatedUser:
+                  $ref: "#/components/schemas/User"
+
+      "400":
+        description: Não foi possível atualizar o usuário.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+      "401":
+        description: Token não fornecido ou não autorizado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+/users/me:
+  get:
+    tags:
+      - Users
+
+    summary: Buscar usuário autenticado
+
+    description: |
+      Retorna os dados do usuário atualmente autenticado.
+      O ID do usuário é obtido diretamente do JWT.
+
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+
+    responses:
+      "200":
+        description: Usuário encontrado com sucesso.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+
+                user:
+                  $ref: "#/components/schemas/User"
+
+      "401":
+        description: Token não fornecido ou não autorizado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+      "404":
+        description: Usuário não encontrado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+/users/{id}:
+  delete:
+    tags:
+      - Users
+
+    summary: Deletar usuário autenticado
+
+    description: |
+      Deleta a conta do usuário autenticado.
+
+      Embora a rota possua o parâmetro `id`, o controller atualmente
+      utiliza o ID presente no JWT (`req.user.id`) para realizar a exclusão.
+
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: ID presente na URL. A rota também passa pela validação de ObjectId.
+        schema:
+          type: string
+          pattern: "^[a-fA-F0-9]{24}$"
+          example: "665f1a2b3c4d5e6f78901234"
+
+    responses:
+      "200":
+        description: Conta deletada com sucesso.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+
+                message:
+                  type: string
+                  example: "Conta deletada com sucesso."
+
+      "401":
+        description: Token não fornecido ou não autorizado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+      "400":
+        description: ID inválido.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"

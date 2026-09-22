@@ -1,0 +1,192 @@
+/sensors:
+  get:
+    tags:
+      - Sensors
+    summary: Lista todos os sensores
+    description: Retorna todos os sensores pertencentes ao usuário autenticado ou à sua empresa.
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+    responses:
+      "200":
+        description: Sensores encontrados.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                sensors:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Sensor"
+              required:
+                - success
+                - sensors
+      "401":
+        description: Usuário não autenticado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+  post:
+    tags:
+      - Sensors
+    summary: Cadastra um sensor
+    description: Cadastra um novo sensor e associa sua propriedade ao usuário autenticado ou à empresa do usuário.
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/SensorInput"
+    responses:
+      "201":
+        description: Sensor cadastrado com sucesso.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  example: "Sensor cadastrado com sucesso."
+                newSensor:
+                  $ref: "#/components/schemas/Sensor"
+              required:
+                - success
+                - message
+                - newSensor
+      "400":
+        description: Não foi possível cadastrar o sensor.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+      "401":
+        description: Usuário não autenticado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+/sensors/{id}:
+  parameters:
+    - $ref: "#/components/parameters/SensorId"
+
+  put:
+    tags:
+      - Sensors
+    summary: Atualiza um sensor
+    description: Atualiza os dados de um sensor pertencente ao usuário autenticado ou à sua empresa.
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/SensorInput"
+    responses:
+      "200":
+        description: Sensor atualizado com sucesso.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  example: "Sensor atualizado com sucesso."
+                updatedSensor:
+                  $ref: "#/components/schemas/Sensor"
+              required:
+                - success
+                - message
+                - updatedSensor
+      "401":
+        description: Usuário não autenticado ou sem acesso ao sensor.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+      "404":
+        description: Sensor não encontrado ou não pôde ser atualizado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+  delete:
+    tags:
+      - Sensors
+    summary: Deleta um sensor
+    description: Remove um sensor pertencente ao usuário autenticado ou à sua empresa.
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+    responses:
+      "204":
+        description: Sensor deletado com sucesso.
+      "401":
+        description: Usuário não autenticado ou sem acesso ao sensor.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+      "404":
+        description: Sensor não encontrado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+
+  get:
+    tags:
+      - Sensors
+    summary: Busca um sensor específico
+    description: Retorna um sensor pertencente ao usuário autenticado ou à sua empresa.
+    security:
+      - cookieAuth: []
+      - bearerAuth: []
+    responses:
+      "200":
+        description: Sensor encontrado.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                sensor:
+                  $ref: "#/components/schemas/Sensor"
+              required:
+                - success
+                - sensor
+      "401":
+        description: Usuário não autenticado ou sem acesso ao sensor.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
+      "404":
+        description: Sensor não encontrado.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Error"
