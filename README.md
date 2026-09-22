@@ -96,6 +96,11 @@ api/
 |   |   ├── sensors/
 |   |   └── users/
 |   |       └── auth/
+|   ├── swagger/
+|   |   ├── parameters/
+|   |   ├── routes/
+|   |   ├── schemas/
+|   |   └── swagger.config.ts
 |   ├── utils/
 |   ├── app.ts
 │   └── index.ts
@@ -185,7 +190,9 @@ A API ficará disponível em `http://localhost:5000`.
 
 A documentação dos endpoints da API será disponibilizada através do Swagger.
 
-**Status:** Em desenvolvimento.
+**Desenvolvimento:** http://localhost:5000/api-docs
+
+**Produção:** https://mobo-m9ug.onrender.com/api-docs
 
 ---
 
