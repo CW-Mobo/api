@@ -21,3 +21,11 @@ export interface ICompany {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface CompanyInput {
+  companyCNPJ: string;
+  ownerName: string;
+  companyName?: string;
+  subscriptionPlan?: ICompany["subscriptionPlan"];
+  companyAddress?: ICompany["companyAddress"];
+}

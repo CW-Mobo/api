@@ -1,14 +1,5 @@
 import Company from "./companies.model";
-import { ICompany } from "./companies.types";
-
-// TIPO DE DADOS PARA CRIAÇÃO/ATUALIZAÇÃO DE EMPRESA
-export interface CompanyInput {
-  companyCNPJ: string;
-  ownerName: string;
-  companyName?: string;
-  subscriptionPlan?: ICompany["subscriptionPlan"];
-  companyAddress?: ICompany["companyAddress"];
-}
+import { ICompany, CompanyInput } from "./companies.types";
 
 class CompanyService {
   // LISTAR TODAS AS EMPRESAS

@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import cors from "cors";
 import dns from "dns";
 import cookieParser from "cookie-parser";
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./config/swagger";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
 import CompanyRoutes from "./modules/companies/companies.routes";
 import HarvestRoutes from "./modules/harvests/harvests.routes";
@@ -23,6 +25,7 @@ if (process.env.NODE_ENV === "development") {
 
 const allowedOrigins = ["https://mobocw.vercel.app", "http://localhost:3000"];
 
+// Para a Aplicação Web
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -40,9 +43,22 @@ app.use(
   }),
 );
 
+// Para o Swagger UI
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, {
+    swaggerOptions: {
+      withCredentials: true,
+    },
+  }),
+);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use("/api/auth", AuthRoutes);
 app.use("/api/companies", CompanyRoutes);
