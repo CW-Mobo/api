@@ -87,6 +87,7 @@ npm run test:coverage
 
 ```text
 api/
+├── scripts/
 ├── src/
 │   ├── config/
 │   ├── middlewares/
