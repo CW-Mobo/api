@@ -8,6 +8,3 @@ on:
 jobs:
   tests:
     uses: CW-Mobo/.github/.github/workflows/api-tests.yml@main
-
-  auto-assign:
-    uses: CW-Mobo/.github/.github/workflows/auto-assign.yml@main
