@@ -1,0 +1,9 @@
+name: API Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests:
+    uses: CW-Mobo/.github/.github/workflows/api-tests.yml@main
