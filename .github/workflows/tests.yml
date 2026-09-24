@@ -3,8 +3,11 @@ name: API Tests
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   tests:
     uses: CW-Mobo/.github/.github/workflows/api-tests.yml@main
-    
+
+  auto-assign:
+    uses: CW-Mobo/.github/.github/workflows/auto-assign.yml@main
