@@ -87,6 +87,8 @@ npm run test:coverage
 
 ```text
 api/
+├── .github/
+|   └── workflows/
 ├── scripts/
 ├── src/
 │   ├── config/
