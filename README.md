@@ -10,6 +10,7 @@
 ![JWT](https://img.shields.io/badge/JWT-autenticação-000000?logo=jsonwebtokens)
 ![Swagger](https://img.shields.io/badge/Swagger-OpenAPI%203.0-85EA2D?logo=swagger&logoColor=black)
 ![Vitest](https://img.shields.io/badge/Vitest-6E9F18?logo=vitest&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Container-2496ED?logo=docker&logoColor=white)
 
 ---
 
@@ -49,6 +50,7 @@ Entre suas responsabilidades estão autenticação, gerenciamento de usuários, 
 - **Cloudinary** — armazenamento e gerenciamento de imagens
 - **dotenv** — gerenciamento de variáveis de ambiente
 - **Vitest** — testes automatizados
+- **Docker** — containerização e padronização do ambiente de execução
 
 ---
 
@@ -119,8 +121,11 @@ api/
 |       ├── sensors/
 |       └── users/
 |           └── auth/
+├── .dockerignore
 ├── .env.example
 ├── .gitignore
+├── docker-compose.yml
+├── Dockerfile
 ├── LICENSE
 ├── package.json
 ├── package-lock.json
@@ -135,11 +140,15 @@ api/
 
 ### Pré-requisitos
 
-Antes de começar, instale:
+Para executar a API diretamente com Node.js, instale:
 
 - [Node.js](https://nodejs.org/) v20 LTS (recomendado)
 - [Git](https://git-scm.com/)
 - [MongoDB](https://www.mongodb.com/) local **ou** conta no [MongoDB Atlas](https://www.mongodb.com/atlas)
+
+Para executar a API utilizando Docker, instale também:
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
 ### 1. Clonar o Repositório
 
@@ -187,6 +196,68 @@ npm run dev
 ```
 
 A API ficará disponível em `http://localhost:5000`.
+
+---
+
+## 🐳 Executando com Docker
+
+A API também pode ser executada utilizando Docker. A containerização permite reproduzir o ambiente da aplicação de forma isolada e padronizada, sem a necessidade de instalar Node.js e as dependências da API diretamente no ambiente de execução.
+
+### Pré-requisitos
+
+Antes de executar a aplicação com Docker, instale e inicie o **Docker Desktop**.
+
+Também é necessário possuir um arquivo `.env` na raiz do projeto, contendo as variáveis necessárias para a aplicação.
+
+O arquivo `.env` **não é incluído na imagem Docker**. As variáveis são disponibilizadas ao container durante sua execução.
+
+### Executar com Docker Compose
+
+Para construir a imagem e iniciar a API:
+
+```bash
+docker compose up --build
+```
+
+A API ficará disponível em:
+
+`http://localhost:5000`
+
+O Docker Compose utiliza o Dockerfile para:
+
+1. Utilizar Node.js 24 como ambiente base;
+2. Instalar as dependências do projeto;
+3. Copiar o código da aplicação;
+4. Compilar o projeto TypeScript;
+5. Executar a API a partir do código compilado.
+
+Como o projeto utiliza o **MongoDB Atlas**, não é necessário executar um container local do MongoDB. A API se conecta ao banco utilizando as variáveis de ambiente configuradas no `.env`.
+
+### Parar o container
+
+Para parar os serviços:
+
+```bash
+docker compose down
+```
+
+Caso existam containers órfãos de versões anteriores do Compose:
+
+```bash
+docker compose down --remove-orphans
+```
+
+### Reconstruir a imagem
+
+Sempre que houver alterações que precisem ser incorporadas à imagem, utilize:
+
+```bash
+docker compose up --build
+```
+
+O uso de Docker é opcional. A API também pode ser executada diretamente utilizando Node.js
+
+Dessa forma, o Docker é utilizado como uma alternativa para containerização e padronização do ambiente de execução, enquanto o modo tradicional continua disponível para desenvolvimento.
 
 ---
 
