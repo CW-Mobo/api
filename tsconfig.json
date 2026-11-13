@@ -27,6 +27,6 @@
     "noEmitOnError": true,                // Impede gerar JS se houver erros
     "sourceMap": true                     // Gera mapas de depuração (debug mais fácil)
   },
-  "include": ["src/**/*"],                // Inclui tudo dentro de src/
-  "exclude": ["node_modules", "dist", "tests", "coverage"]     // Ignora libs e build final
+  "include": ["src/**/*", "scripts/copy-config.js"],                // Inclui tudo dentro de src e o script de cópia de config
+  "exclude": ["node_modules", "dist", "tests", "coverage"]     // Ignora libs, tests e build final
 }

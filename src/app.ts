@@ -14,6 +14,7 @@ import SensorDataRoutes from "./modules/sensor-data/sensor-data.routes";
 import SensorRoutes from "./modules/sensors/sensors.routes";
 import UserRoutes from "./modules/users/users.routes";
 import AuthRoutes from "./modules/users/auth/auth.routes";
+import AIRoutes from "./modules/ai/ai.routes";
 
 dotenv.config();
 
@@ -54,7 +55,7 @@ app.use(
   }),
 );
 
-app.use(express.json());
+app.use(express.json({ limit: "12mb" }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
@@ -68,6 +69,7 @@ app.use("/api/harvest-images", HarvestImagesRoutes);
 app.use("/api/sensor-data", SensorDataRoutes);
 app.use("/api/sensors", SensorRoutes);
 app.use("/api/users", UserRoutes);
+app.use("/api/ai", AIRoutes);
 
 app.get("/", (_req: Request, res: Response) => {
   res.status(200).json({

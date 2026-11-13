@@ -89,6 +89,12 @@ npm run test:coverage
 
 ```text
 api/
+├── ai_service/
+│   ├── model/
+│   │   └── modelo_lichia.keras
+│   ├── Dockerfile
+│   ├── main.py
+│   └── requirements.txt
 ├── .github/
 |   └── workflows/
 ├── scripts/
@@ -197,7 +203,34 @@ NODE_ENV=development
 npm run dev
 ```
 
-A API ficará disponível em `http://localhost:5000`.
+A API ficará disponível em `http://localhost:5000`. Para as rotas de maturação funcionarem fora do Docker, inicie também o serviço Python em outro terminal:
+
+```bash
+cd ai_service
+python -m venv .venv
+```
+
+No Windows PowerShell, ative o ambiente virtual e instale as dependências:
+
+```bash
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+
+No macOS/Linux, use:
+
+```bash
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+O arquivo treinado deve estar em `api/ai_service/model/modelo_lichia.keras`. Inicie o serviço:
+
+```bash
+uvicorn main:app --host 0.0.0.0 --port 8001
+```
+
+O `AI_SERVICE_URL` da API Node deve apontar para `http://127.0.0.1:8001`. Com Docker Compose, os dois serviços são iniciados juntos e essa URL é configurada automaticamente.
 
 ---
 
@@ -225,13 +258,12 @@ A API ficará disponível em:
 
 `http://localhost:5000`
 
-O Docker Compose utiliza o Dockerfile para:
+O Docker Compose inicia dois serviços do mesmo backend:
 
-1. Utilizar Node.js 24 como ambiente base;
-2. Instalar as dependências do projeto;
-3. Copiar o código da aplicação;
-4. Compilar o projeto TypeScript;
-5. Executar a API a partir do código compilado.
+- `api`: aplicação Node.js/TypeScript disponível na porta 5000;
+- `ai`: serviço Python/FastAPI com TensorFlow e o modelo Keras, acessível internamente na porta 8001.
+
+A API Node encaminha as imagens recebidas para o serviço `ai`; o mobile se comunica somente com a API Node.
 
 Como o projeto utiliza o **MongoDB Atlas**, não é necessário executar um container local do MongoDB. A API se conecta ao banco utilizando as variáveis de ambiente configuradas no `.env`.
 
@@ -261,6 +293,8 @@ O uso de Docker é opcional. A API também pode ser executada diretamente utiliz
 
 Dessa forma, o Docker é utilizado como uma alternativa para containerização e padronização do ambiente de execução, enquanto o modo tradicional continua disponível para desenvolvimento.
 
+Em produção, o serviço Python de IA também precisa estar publicado e acessível pela API Node. Configure `AI_SERVICE_URL` no ambiente da API com o endereço interno/privado desse serviço. O app mobile continua usando apenas a URL pública da API Mobo.
+
 ---
 
 ## 📚 Documentação da API
@@ -277,6 +311,15 @@ A documentação inclui:
 - Autenticação por JWT
 - Autenticação através de cookies
 - Organização da documentação por módulos
+
+### Análise de maturação
+
+As rotas autenticadas de IA recebem imagens pela API Mobo e encaminham os arquivos ao serviço Python que carrega o Keras:
+
+- `POST /api/ai/predict` — envia multipart no campo `file`;
+- `POST /api/ai/predict-frame` — recebe JSON com `image_base64`, `mime_type` e `file_name` para quadros da câmera.
+
+As respostas incluem `classe_prevista` (`madura` ou `nao_madura`) e `confianca` em porcentagem.
 
 ### Swagger UI
 
