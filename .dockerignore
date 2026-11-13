@@ -8,4 +8,6 @@ coverage
 npm-debug.log
 Dockerfile
 docker-compose.yml
-ai_service
+ai_service/.venv
+ai_service/__pycache__
+ai_service/**/*.pyc
